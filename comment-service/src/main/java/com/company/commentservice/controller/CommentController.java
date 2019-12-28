@@ -36,6 +36,17 @@ public class CommentController {
         return commentDao.findAll();
     }
 
+    @GetMapping("/post/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Comment> getCommentsByPostId(@PathVariable int postId){
+        return commentDao.getCommentByPostId(postId);
+    }
+
+    @GetMapping("/account/{accountId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Comment> getCommentsByAccountId(@PathVariable int accountId){
+        return commentDao.getCommentByAccountId(accountId);
+    }
 
     //update
     @PutMapping()

@@ -35,6 +35,12 @@ public class PostController {
         return postDao.findAll();
     }
 
+    @GetMapping("/account/{accountId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Post> getPostsByAccountId(@PathVariable int accountId){
+        return postDao.getPostsByAccountId(accountId);
+    }
+
 
     //update
     @PutMapping()

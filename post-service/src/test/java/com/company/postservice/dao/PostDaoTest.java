@@ -62,4 +62,18 @@ public class PostDaoTest {
         assertEquals("this is the new post",postDao.getOne(post.getPostId()).getPost());
 
     }
+
+    @Test
+    public void getPostsByAccountId(){
+        Post post = new Post();
+        post.setAccountId(1);
+        post.setCreatedDate(LocalDate.now());
+        post.setPost("this is a post");
+
+        postDao.save(post);
+
+
+        assertEquals(post,postDao.getPostsByAccountId(post.getAccountId()).get(0));
+
+    }
 }
