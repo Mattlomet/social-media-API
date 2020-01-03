@@ -1,0 +1,485 @@
+openapi: 3.0.1
+info:
+  title: Api Documentation
+  description: Api Documentation
+  termsOfService: urn:tos
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  version: "1.0"
+servers:
+- url: //localhost:8080/
+tags:
+- name: social-controller
+  description: Social Controller
+paths:
+  /account:
+    put:
+      tags:
+      - social-controller
+      summary: updateAccount
+      operationId: updateAccountUsingPUT
+      requestBody:
+        description: accountViewModel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountViewModel'
+        required: true
+      responses:
+        200:
+          description: OK
+          content: {}
+        201:
+          description: Created
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+      x-codegen-request-body-name: accountViewModel
+    post:
+      tags:
+      - social-controller
+      summary: createAccount
+      operationId: createAccountUsingPOST
+      requestBody:
+        description: accountViewModel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountViewModel'
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccountViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+      x-codegen-request-body-name: accountViewModel
+  /account/{accountId}:
+    get:
+      tags:
+      - social-controller
+      summary: getAccountById
+      operationId: getAccountByIdUsingGET
+      parameters:
+      - name: accountId
+        in: path
+        description: accountId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccountViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+    delete:
+      tags:
+      - social-controller
+      summary: deleteAccount
+      operationId: deleteAccountUsingDELETE
+      parameters:
+      - name: accountId
+        in: path
+        description: accountId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content: {}
+        204:
+          description: No Content
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+      deprecated: false
+  /comment:
+    put:
+      tags:
+      - social-controller
+      summary: updateComment
+      operationId: updateCommentUsingPUT
+      requestBody:
+        description: commentViewModel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentViewModel'
+        required: true
+      responses:
+        200:
+          description: OK
+          content: {}
+        201:
+          description: Created
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+      x-codegen-request-body-name: commentViewModel
+    post:
+      tags:
+      - social-controller
+      summary: createComment
+      operationId: createCommentUsingPOST
+      requestBody:
+        description: commentViewModel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentViewModel'
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CommentViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+      x-codegen-request-body-name: commentViewModel
+  /comment/account/{accountId}:
+    get:
+      tags:
+      - social-controller
+      summary: getCommentsByAccountId
+      operationId: getCommentsByAccountIdUsingGET
+      parameters:
+      - name: accountId
+        in: path
+        description: accountId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+  /comment/{commentId}:
+    get:
+      tags:
+      - social-controller
+      summary: getCommentById
+      operationId: getCommentByIdUsingGET
+      parameters:
+      - name: commentId
+        in: path
+        description: commentId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CommentViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+    delete:
+      tags:
+      - social-controller
+      summary: deleteComment
+      operationId: deleteCommentUsingDELETE
+      parameters:
+      - name: commentId
+        in: path
+        description: commentId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content: {}
+        204:
+          description: No Content
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+      deprecated: false
+  /post:
+    get:
+      tags:
+      - social-controller
+      summary: getAllPosts
+      operationId: getAllPostsUsingGET
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+    put:
+      tags:
+      - social-controller
+      summary: updatePost
+      operationId: updatePostUsingPUT
+      requestBody:
+        description: postViewModel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostViewModel'
+        required: true
+      responses:
+        200:
+          description: OK
+          content: {}
+        201:
+          description: Created
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+      x-codegen-request-body-name: postViewModel
+    post:
+      tags:
+      - social-controller
+      summary: createPost
+      operationId: createPostUsingPOST
+      requestBody:
+        description: postViewModel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostViewModel'
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PostViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+      x-codegen-request-body-name: postViewModel
+  /post/{postId}:
+    get:
+      tags:
+      - social-controller
+      summary: getPostById
+      operationId: getPostByIdUsingGET
+      parameters:
+      - name: postId
+        in: path
+        description: postId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PostViewModel'
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+        404:
+          description: Not Found
+          content: {}
+      deprecated: false
+    delete:
+      tags:
+      - social-controller
+      summary: deletePost
+      operationId: deletePostUsingDELETE
+      parameters:
+      - name: postId
+        in: path
+        description: postId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          content: {}
+        204:
+          description: No Content
+          content: {}
+        401:
+          description: Unauthorized
+          content: {}
+        403:
+          description: Forbidden
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    AccountViewModel:
+      title: AccountViewModel
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+        accountName:
+          type: string
+        createdDate:
+          type: string
+          example: yyyy-MM-dd
+    CommentViewModel:
+      title: CommentViewModel
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+        accountViewModel:
+          $ref: '#/components/schemas/AccountViewModel'
+        comment:
+          type: string
+        commentId:
+          type: integer
+          format: int32
+        createdDate:
+          type: string
+          example: yyyy-MM-dd
+        postId:
+          type: integer
+          format: int32
+    PostViewModel:
+      title: PostViewModel
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int32
+        accountViewModel:
+          $ref: '#/components/schemas/AccountViewModel'
+        commentList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentViewModel'
+        createdDate:
+          type: string
+          example: yyyy-MM-dd
+        post:
+          type: string
+        postId:
+          type: integer
+          format: int32

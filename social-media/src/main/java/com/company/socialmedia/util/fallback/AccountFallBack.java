@@ -2,6 +2,7 @@ package com.company.socialmedia.util.fallback;
 
 import com.company.socialmedia.model.Account;
 import com.company.socialmedia.util.feign.AccountFeign;
+import com.netflix.hystrix.contrib.javanica.exception.FallbackInvocationException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,6 +24,12 @@ public class AccountFallBack implements AccountFeign {
         account.setAccountName("there has been a problem with getting account info");
         account.setCreatedDate(null);
         return account;
+    }
+
+    @Override
+    public void updateAccount(Account account) {
+        System.out.println("error in - Account update");
+        throw new FallbackInvocationException();
     }
 
 }

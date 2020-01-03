@@ -3,6 +3,7 @@ package com.company.socialmedia.controller;
 import com.company.socialmedia.exception.AccountException;
 import com.company.socialmedia.exception.CommentException;
 import com.company.socialmedia.exception.PostException;
+import com.netflix.hystrix.contrib.javanica.exception.FallbackInvocationException;
 import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +67,16 @@ public class ControllerAdvice {
         return responseEntity;
     }
 
+    @ExceptionHandler(value = {FallbackInvocationException.class})
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseEntity<VndErrors> outOfRangeException(FallbackInvocationException e, WebRequest request) {
+
+        VndErrors error = new VndErrors(request.toString(), e.getMessage());
+
+        ResponseEntity<VndErrors> responseEntity = new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+
+        return responseEntity;
+    }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)

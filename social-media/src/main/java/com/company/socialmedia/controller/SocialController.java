@@ -36,7 +36,19 @@ public class SocialController {
         return serviceLayer.getAccountById(accountId);
     }
 
+    //update account
+    @PutMapping("/account")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateAccount(@RequestBody @Valid AccountViewModel accountViewModel){
+        serviceLayer.updateAccount(accountViewModel);
+    }
 
+    //delete account
+    @DeleteMapping("/account/{accountId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAccount(@PathVariable int accountId){
+        serviceLayer.deleteAccount(accountId);
+    }
 
     //create post
     @PostMapping("/post")
@@ -104,7 +116,7 @@ public class SocialController {
     }
 
     //delete comment
-    @GetMapping("/comment/{commentId}")
+    @DeleteMapping("/comment/{commentId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteComment(@PathVariable int commentId){
         serviceLayer.deleteComment(commentId);

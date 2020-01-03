@@ -13,35 +13,35 @@ import java.util.List;
 public interface CommentFeign {
 
     //post
-    @PostMapping()
+    @PostMapping("/comment")
     @ResponseStatus(HttpStatus.CREATED)
     Comment createComment(@RequestBody Comment comment);
 
     //read
-    @GetMapping("/{id}")
+    @GetMapping("/comment/{id}")
     @ResponseStatus(HttpStatus.OK)
     Comment getCommentById(@PathVariable int id);
 
-    @GetMapping()
+    @GetMapping("/comment")
     @ResponseStatus(HttpStatus.OK)
     List<Comment> getAllComments();
 
-    @GetMapping("/post/{postId}")
+    @GetMapping("/comment/post/{postId}")
     @ResponseStatus(HttpStatus.OK)
     List<Comment> getCommentsByPostId(@PathVariable int postId);
 
-    @GetMapping("/account/{accountId}")
+    @GetMapping("/comment/account/{accountId}")
     @ResponseStatus(HttpStatus.OK)
     List<Comment> getCommentsByAccountId(@PathVariable int accountId);
 
 
     //update
-    @PutMapping()
+    @PutMapping("/comment")
     @ResponseStatus(HttpStatus.OK)
     void updateComment(@RequestBody Comment comment);
 
     //delete
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/comment/{id}")
     @ResponseStatus(HttpStatus.OK)
     void deleteCommentById(@PathVariable int id);
 

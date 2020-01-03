@@ -12,30 +12,31 @@ import java.util.List;
 public interface PostFeign {
 
     //post
-    @PostMapping()
+    @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
     Post createPost(@RequestBody Post post);
+
     //read
-    @GetMapping("/{id}")
+    @GetMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
     Post getPostById(@PathVariable int id);
 
-    @GetMapping()
+    @GetMapping("/post")
     @ResponseStatus(HttpStatus.OK)
     List<Post> getAllPosts();
 
-    @GetMapping("/account/{accountId}")
+    @GetMapping("/post/account/{accountId}")
     @ResponseStatus(HttpStatus.OK)
     List<Post> getPostsByAccountId(@PathVariable int accountId);
 
 
     //update
-    @PutMapping()
+    @PutMapping("/post")
     @ResponseStatus(HttpStatus.OK)
     void updatePost(@RequestBody Post post);
 
     //delete
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/post/{id}")
     @ResponseStatus(HttpStatus.OK)
     void deletePostById(@PathVariable int id);
 }

@@ -16,6 +16,7 @@ import com.netflix.hystrix.contrib.javanica.exception.FallbackInvocationExceptio
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMsg;
 import org.apache.tomcat.jni.Error;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,14 @@ import java.util.List;
 
 @Component
 public class ServiceLayer {
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
+    private static final String EXCHANGE = "account-exchange";
+    private static final String ROUTING_KEY_DELETE = "account.delete";
+    private static final String ROUTING_KEY_UPDATE = "account.update";
+
 
     @Autowired
     AccountFeign accountFeign;
@@ -36,14 +45,6 @@ public class ServiceLayer {
 
 
     // methods for controllers
-
-
-    //TODO:
-    // Account: CRUD, need queue service for CUD, read will be done with feign
-    // Post: CRUD
-    // Comment: CRUD
-
-
 
     // account model methods
 
@@ -69,6 +70,22 @@ public class ServiceLayer {
         }
 
         return buildAccountViewModel(account);
+    }
+
+    public void updateAccount(AccountViewModel accountViewModel){
+        Account account = new Account();
+        account.setAccountId(accountViewModel.getAccountId());
+        account.setAccountName(accountViewModel.getAccountName());
+        account.setCreatedDate(accountViewModel.getCreatedDate());
+
+
+        System.out.println(".....updating account");
+        accountFeign.updateAccount(account);
+    }
+
+    public void deleteAccount(int accountId){
+        System.out.println(".....deleting account");
+        rabbitTemplate.convertAndSend(EXCHANGE,ROUTING_KEY_DELETE,accountId);
     }
 
 
@@ -117,10 +134,12 @@ public class ServiceLayer {
         post.setCreatedDate(postViewModel.getCreatedDate());
         post.setAccountId(postViewModel.getAccountId());
 
-         postFeign.updatePost(post);
+        System.out.println(".....updating post");
+        postFeign.updatePost(post);
     }
 
     public void deletePost(int postId){
+        System.out.println(".....deleting post");
         postFeign.deletePostById(postId);
     }
 
@@ -179,10 +198,12 @@ public class ServiceLayer {
         comment.setComment(commentViewModel.getComment());
         comment.setCreatedDate(commentViewModel.getCreatedDate());
 
+        System.out.println(".....updating comment");
         commentFeign.updateComment(comment);
     }
 
     public void deleteComment(int commentId){
+        System.out.println(".....deleting comment");
         commentFeign.deleteCommentById(commentId);
     }
 
@@ -203,6 +224,7 @@ public class ServiceLayer {
         CommentViewModel cvm = new CommentViewModel();
         cvm.setAccountId(comment.getAccountId());
         cvm.setCommentId(comment.getCommentId());
+        cvm.setComment(comment.getComment());
         cvm.setPostId(comment.getPostId());
         cvm.setCreatedDate(comment.getCreatedDate());
 

@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.*;
 public interface AccountFeign {
 
     //post
-    @PostMapping()
+    @PostMapping("/account")
     @ResponseStatus(HttpStatus.CREATED)
     Account createAccount(@RequestBody Account account);
 
     //read
-    @GetMapping("/{id}")
+    @GetMapping("/account/{id}")
     @ResponseStatus(HttpStatus.OK)
     Account getAccountById(@PathVariable int id);
+
+    //update
+    @PutMapping()
+    @ResponseStatus(HttpStatus.OK)
+    void updateAccount(@RequestBody Account account);
 
 }

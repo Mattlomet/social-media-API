@@ -9,6 +9,7 @@
         <module name="account-service" />
         <module name="cloud-config-server" />
         <module name="post-service" />
+        <module name="queue-consumer-service" />
         <module name="eureka-service" />
         <module name="comment-service" />
         <module name="social-media" />
@@ -20,6 +21,7 @@
       <module name="comment-service" target="1.8" />
       <module name="eureka-service" target="1.8" />
       <module name="post-service" target="1.8" />
+      <module name="queue-consumer-service" target="1.8" />
       <module name="social-media" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -30,6 +32,7 @@
       <module name="comment-service" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
       <module name="post-service" options="-parameters" />
+      <module name="queue-consumer-service" options="-parameters" />
       <module name="social-media" options="-parameters" />
     </option>
   </component>
